@@ -31,7 +31,9 @@ export const loaderHandler = async () => {
     //   isError: true,
     //   message: "Could not fetch events.",
     // };
-    throw new Error("Could not fetch events");
+    throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
+      status: 500,
+    });
   } else {
     return response;
   }
