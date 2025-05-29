@@ -12,7 +12,37 @@ import {
   actionHandler as deleteEventActionHandler,
 } from "./pages/EventDetail";
 import { actionHandler as manipulateEventActionHandler } from "./components/EventForm";
+import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 
+/**
+ * Defines the application's route configuration using React Router's `createBrowserRouter`.
+ *
+ * Route Structure:
+ * - "/" (Root)
+ *   - Renders: <RootLayout />
+ *   - Error: <ErrorPage />
+ *   - Children:
+ *     - Index route: <HomePage />
+ *     - "events" (Events Section)
+ *       - Renders: <EventsRoot />
+ *       - Children:
+ *         - Index route: <EventPage /> (with loaderHandler)
+ *         - ":eventId" (Event Detail)
+ *           - Loader: loaderFromEventDetail
+ *           - Children:
+ *             - Index route: <EventDetail /> (with deleteEventActionHandler)
+ *             - "edit": <EditEventPage /> (with manipulateEventActionHandler)
+ *         - "new": <NewEventPage /> (with manipulateEventActionHandler)
+ *     - "newsletter": <NewsletterPage /> (with newsletterAction)
+ *
+ * Each route can specify:
+ * - `element`: The React component to render.
+ * - `loader`: Data loading function for the route.
+ * - `action`: Function to handle form submissions or mutations.
+ * - `errorElement`: Component to render on error.
+ *
+ * @type {import('react-router-dom').RouteObject[]}
+ */
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +82,11 @@ const router = createBrowserRouter([
             action: manipulateEventActionHandler,
           },
         ],
+      },
+      {
+        path: "newsletter",
+        element: <NewsletterPage />,
+        action: newsletterAction,
       },
     ],
   },

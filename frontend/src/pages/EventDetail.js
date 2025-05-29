@@ -18,11 +18,13 @@ export const loaderHandler = async ({ request, params }) => {
   const response = await fetch("http://localhost:8080/events/" + id);
 
   if (!response.ok) {
-    return JSON.stringify(
-      { message: "Could not fetch deatails for selected events" },
-      {
-        status: 500,
-      }
+    return new Response(
+      JSON.stringify(
+        { message: "Could not fetch deatails for selected events" },
+        {
+          status: 500,
+        }
+      )
     );
   } else {
     return response;

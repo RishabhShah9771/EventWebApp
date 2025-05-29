@@ -1,29 +1,47 @@
 import classes from "./MainNavigation.module.css";
 import { NavLink } from "react-router-dom";
+import NewsletterSignup from "./NewsletterSignup";
 
 const MainNavigation = () => {
-  const activeLinkHandler = ({ isActive }) => {
-    return isActive ? classes.active : undefined;
-  };
-
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
-          <ul>
-            <li>
-              <NavLink to="/" className={activeLinkHandler} end>
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/events" className={activeLinkHandler} end>
-                Event
-              </NavLink>
-            </li>
-          </ul>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+              end
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/events"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+              end
+            >
+              Event
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/newsletter"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              NewsLetter
+            </NavLink>
+          </li>
         </ul>
       </nav>
+      <NewsletterSignup />
     </header>
   );
 };
