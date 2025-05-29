@@ -1,7 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { redirect, useRouteLoaderData } from "react-router-dom";
 import EventItem from "../components/EventItem";
 const EventDetail = () => {
-  const data = useLoaderData();
+  const data = useRouteLoaderData("event-detail");
+  // To access the higher level data, we can use the useRouteLoaderData hook and need to pass id to it so we can access the data from loader function.
   // The useLoaderData hook retrieves data loaded by the loader function in the route configuration.
   return (
     <>
@@ -26,4 +27,23 @@ export const loaderHandler = async ({ request, params }) => {
   } else {
     return response;
   }
+};
+export const actionHandler = async ({ request, params }) => {
+  const response = await fetch(
+    "http://localhost:8080/events/" + params.eventId,
+    {
+      method: request.method,
+    }
+  );
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify(
+        { message: "Could not delete event" },
+        {
+          status: 500,
+        }
+      )
+    );
+  }
+  return redirect("/events");
 };
